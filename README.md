@@ -95,7 +95,7 @@ A highly isolated, multi-tenant memory engine that dynamically constructs a stri
 
 ## 📐 Architecture Overview
 
-![CreatorMind AI Architecture](docs/architecture/system-architecture.png)
+![CreatorMind AI Architecture](docs/assets/architecture/system-architecture.png)
 
 1. **Frontend:** Dispatches requests spanning multiple workspace UUIDs. 
 2. **Knowledge Service:** Receives `.pdf` uploads, executing `RecursiveCharacterTextSplitter`.
