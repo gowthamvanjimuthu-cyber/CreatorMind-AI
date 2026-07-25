@@ -74,14 +74,19 @@
 - [Creator Profile](#creator-profile)
 - [Deployment](#deployment)
 - [Future Roadmap](#future-roadmap)
-- [Contributors](#contributors)
+- [Developer](#developer)
+- [Contributing](#contributing)
 - [License & Acknowledgements](#license--acknowledgements)
 
 ---
 <a id="project-overview"></a>
 
 ## 🌍 Project Overview
-CreatorMind AI is engineered for the **IBM AI Builders Challenge**. It is an advanced Retrieval-Augmented Generation (RAG) platform that ingests unstructured documents, mathematically extracts an author's tone using **IBM Granite**, and binds these persona traits into all future LLM generations—resulting in zero hallucination, pure voice-cloning content creation.
+
+CreatorMind AI is an AI-powered content creation platform built for the IBM AI Builders Challenge. It combines Retrieval-Augmented Generation (RAG), ChromaDB, and IBM watsonx Granite models to help creators generate personalized content while preserving their unique writing style and knowledge base.
+
+The platform allows users to upload documents, build a creator profile, retrieve relevant knowledge through semantic search, and generate context-aware content using AI.
+
 
 <a id="problem-statement"></a>
 
@@ -91,7 +96,10 @@ Scaling content creation inevitably dilutes an author's authentic voice. Relying
 <a id="solution"></a>
 
 ## 💡 Solution
-A highly isolated, multi-tenant memory engine that dynamically constructs a strict Creator Persona schema by utilizing off-band inferences via **IBM Watsonx**. Every future request sent to the Writing Studio forces the LLM to route its knowledge through the constraints of this extracted persona.
+
+CreatorMind AI combines document ingestion, semantic search, creator profiling, and AI-powered content generation into a unified platform.
+
+Uploaded documents are processed through a RAG pipeline, stored in ChromaDB, and retrieved whenever relevant. A creator profile captures writing style, tone, and preferences so generated content better reflects the creator's unique voice.
 
 <a id="key-features"></a>
 
@@ -118,10 +126,15 @@ A highly isolated, multi-tenant memory engine that dynamically constructs a stri
 <a id="technology-stack"></a>
 
 ## 🛠️ Technology Stack
-- **Frontend Layer:** React, Vite, TypeScript, TailwindCSS, Zustand
-- **Backend API:** FastAPI, Pydantic, Python 3.10
-- **AI / LLM Subsystem:** IBM Watsonx / Granite Models
-- **Database / RAG:** ChromaDB (Semantic Search), SQLite / SQLAlchemy
+| Layer | Technologies |
+|-------|--------------|
+| Frontend | React, Vite, TypeScript, Tailwind CSS |
+| Backend | FastAPI, Python, Pydantic |
+| Database | SQLite |
+| Vector Database | ChromaDB |
+| Authentication | Supabase |
+| AI Models | IBM watsonx Granite / Mock Provider |
+| Deployment | Docker |
 
 <a id="architecture-overview"></a>
 
@@ -149,22 +162,42 @@ CreatorMind/
 <a id="installation"></a>
 
 ## ⚙️ Installation
-**Prerequisites:** Node.js 18+, Python 3.10+, SQLite3.
-1. Clone the repository natively:
-   `git clone https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI.git`
-2. Configure `.env` inside `/backend` (refer below).
+
+### Prerequisites
+
+- Node.js 18+
+- Python 3.10+
+- SQLite3
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI.git
+```
+2. Configure the `.env` file inside the `backend` directory (see below).
+
+---
 
 <a id="running-locally"></a>
 
 ## 🏃 Running Locally
-**Backend:**
+### Backend
+
 ```bash
 cd backend
-python -m venv venv && source venv/bin/activate
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# macOS/Linux
+source venv/bin/activate
+
 pip install -r requirements.txt
 py -m uvicorn app.main:app --reload
 ```
-**Frontend:**
+
+### Frontend
 ```bash
 cd frontend
 npm install
@@ -174,10 +207,15 @@ npm run dev
 <a id="environment-variables"></a>
 
 ## 🔐 Environment Variables
-In `backend/.env`, populate the following:
+
+Create a `.env` file inside the `backend` directory and add:
+
 ```env
 CHROMA_DB_DIR=./chroma_data
 ```
+
+> **Note:** Local development uses the built-in mock AI provider. IBM watsonx Granite can be enabled later by supplying valid IBM credentials.
+
 <a id="screenshots--demo"></a>
 
 ## 📷 Screenshots & Demo
@@ -239,7 +277,9 @@ CHROMA_DB_DIR=./chroma_data
 
 ### 🎥 Demo Video
 
-🎥 **Demo Video:** https://youtu.be/your-video-link
+Watch the complete walkthrough here:
+
+**YouTube:** https://youtu.be/your-video-link
 
 ### 🎬 Demo GIF
 
@@ -248,12 +288,26 @@ CHROMA_DB_DIR=./chroma_data
 <a id="ibm-granite-integration"></a>
 
 ## 🧠 IBM Granite Integration
-CreatorMind totally bypasses standard OpenAI paradigms. It strictly wraps connection payloads directly to IBM's Granite models (e.g., `granite-13b-chat-v2`). The AI Adapter binds explicitly to structure generation tasks natively optimized for enterprise reliability.
+
+CreatorMind AI is designed to integrate with IBM watsonx Granite models for enterprise-grade AI content generation.
+
+During local development, the application supports a mock AI provider, allowing the platform, RAG pipeline, and user interface to be tested without requiring IBM watsonx API credentials.
+
+When IBM watsonx credentials are available, the application can be configured to use IBM Granite models without changes to the frontend.
 
 <a id="rag-pipeline"></a>
 
 ## 📚 RAG Pipeline
-Powered by ChromaDB. When a document uploads, it is parsed by Document Processors (10MB limits), recursively chunked into 1000 characters, embedded, and tagged tightly with `$and` query clauses guaranteeing total multi-tenant vector isolation securely mapped.
+
+The Retrieval-Augmented Generation (RAG) pipeline follows these steps:
+
+1. Upload documents (PDF, DOCX, TXT)
+2. Parse and split documents into chunks
+3. Generate embeddings
+4. Store vectors in ChromaDB
+5. Retrieve relevant context
+6. Combine creator profile with retrieved knowledge
+7. Generate responses using IBM Granite (or the mock provider during local development)
 
 <a id="creator-profile"></a>
 
@@ -276,22 +330,58 @@ These insights are injected into every AI generation, ensuring content closely m
 <a id="deployment"></a>
 
 ## 🚢 Deployment
-Ships production-ready using ASGI workers bounded by Gunicorn across Docker containers. Detailed deployment architectures (migrating from SQLite to Postgres) reside in `docs/DEPLOYMENT_GUIDE.md`.
+
+The application is container-ready and can be deployed using Docker.
+
+Future deployment targets include:
+
+- IBM Cloud
+- Render
+- Railway
+- Azure App Service
 
 <a id="future-roadmap"></a>
 
 ## 🔮 Future Roadmap
-- [ ] Migrate `InMemory` Profile caches into distributed `Redis`.
-- [ ] Offload heavy background RAG ingestion toward headless `Celery` workers.
-- [ ] Incorporate semantic search against historical Chat Histories (Multi-Vector indexing).
 
-<a id="contributors"></a>
+- IBM watsonx production integration
+- Multi-user workspaces
+- Voice profile improvements
+- Content scheduling
+- Cloud deployment
+- Mobile responsive interface
+- Advanced analytics dashboard
 
-## 🤝 Contributors
-Contributions are entirely welcome! Reference the [CONTRIBUTING.md](CONTRIBUTING.md) guide and adhere to our [CODE OF CONDUCT](CODE_OF_CONDUCT.md).
+<a id="developer"></a>
+
+
+## 👨‍💻 Developer
+
+**Gowtham Vanjimuthu**  
+AI & Data Science Student
+
+Creator and developer of **CreatorMind AI**.
+
+<a id="contributing"></a>
+
+## 🤝 Contributing
+
+Contributions, suggestions, and feedback are welcome!
+
+Please read the [CONTRIBUTING.md](CONTRIBUTING.md) guide before submitting a pull request, and follow our [CODE OF_CONDUCT.md](CODE_OF_CONDUCT.md) to help maintain a welcoming community.
 
 <a id="license--acknowledgements"></a>
 
 ## 📜 License & Acknowledgements
 Built under the **MIT License**.
 A massive thank you to the **IBM AI Builders Challenge** for providing the Granite endpoints and enterprise scale inspiration!
+
+---
+
+<div align="center">
+
+Made with ❤️ using **React**, **FastAPI**, **ChromaDB**, and **IBM watsonx Granite**
+
+⭐ If you found this project interesting, consider giving it a star!
+
+</div>
