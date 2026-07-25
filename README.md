@@ -36,24 +36,25 @@
 ---
 
 ## 📑 Table of Contents
-- [Project Overview](#-project-overview)
-- [Problem Statement](#-problem-statement)
-- [Solution](#-solution)
-- [Key Features](#-key-features)
-- [Technology Stack](#-technology-stack)
-- [Architecture Overview](#-architecture-overview)
-- [Folder Structure](#-folder-structure)
-- [Installation](#-installation)
-- [Running Locally](#-running-locally)
-- [Environment Variables](#-environment-variables)
-- [Screenshots & Demo](#-screenshots--demo)
-- [IBM Granite Integration](#-ibm-granite-integration)
-- [RAG Pipeline](#-rag-pipeline)
-- [Creator Profile](#-creator-profile)
-- [Deployment](#-deployment)
-- [Future Roadmap](#-future-roadmap)
-- [Contributors](#-contributors)
-- [License & Acknowledgements](#-license--acknowledgements)
+
+- [Project Overview](#project-overview)
+- [Problem Statement](#problem-statement)
+- [Solution](#solution)
+- [Key Features](#key-features)
+- [Technology Stack](#technology-stack)
+- [Architecture Overview](#architecture-overview)
+- [Folder Structure](#folder-structure)
+- [Installation](#installation)
+- [Running Locally](#running-locally)
+- [Environment Variables](#environment-variables)
+- [Screenshots & Demo](#screenshots--demo)
+- [IBM Granite Integration](#ibm-granite-integration)
+- [RAG Pipeline](#rag-pipeline)
+- [Creator Profile](#creator-profile)
+- [Deployment](#deployment)
+- [Future Roadmap](#future-roadmap)
+- [Contributors](#contributors)
+- [License & Acknowledgements](#license--acknowledgements)
 
 ---
 
@@ -94,7 +95,7 @@ A highly isolated, multi-tenant memory engine that dynamically constructs a stri
 
 ## 📐 Architecture Overview
 
-![CreatorMind AI Architecture](docs/assets/diagrams/system-architecture.png)
+![CreatorMind AI Architecture](docs/architecture/system-architecture.png)
 
 1. **Frontend:** Dispatches requests spanning multiple workspace UUIDs. 
 2. **Knowledge Service:** Receives `.pdf` uploads, executing `RecursiveCharacterTextSplitter`.
@@ -196,7 +197,6 @@ CHROMA_DB_DIR=./chroma_data
 ### 🎥 Demo Video
 🎥 **Demo Video:** https://youtu.be/your-video-link
 ### Demo GIF
-
 ![CreatorMind Demo](docs/assets/demo/creatormind-demo.gif)
 
 ## 🧠 IBM Granite Integration
