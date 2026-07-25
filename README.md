@@ -1,11 +1,11 @@
 <div align="center">
   <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind">
-    <img src="docs/assets/banner_placeholder.png" alt="CreatorMind AI Banner" width="100%">
+    <img src="https://via.placeholder.com/1200x300?text=CreatorMind+AI" alt="CreatorMind AI Banner" width="100%">
   </a>
   <br />
   <br />
 
-  <img src="docs/assets/logo_placeholder.png" alt="CreatorMind Logo" width="120" height="120">
+  <img src="https://via.placeholder.com/120x120?text=CM" alt="CreatorMind Logo" width="120" height="120">
 
   <h1 align="center">CreatorMind AI</h1>
 
@@ -80,7 +80,7 @@ A highly isolated, multi-tenant memory engine that dynamically constructs a stri
 - **Database / RAG:** ChromaDB (Semantic Search), SQLite / SQLAlchemy
 
 ## 📐 Architecture Overview
-![Architecture Diagram Placeholder](docs/diagrams/system_architecture_placeholder.png)
+![Architecture Diagram Placeholder](https://via.placeholder.com/1200x600?text=System+Architecture+Diagram)
 1. **Frontend:** Dispatches requests spanning multiple workspace UUIDs. 
 2. **Knowledge Service:** Receives `.pdf` uploads, executing `RecursiveCharacterTextSplitter`.
 3. **ChromaDB:** Ingests chunks attached with tight metadata clauses (strict `$and` tenant bounds).
@@ -131,12 +131,12 @@ CHROMA_DB_DIR=./chroma_data
 ### Demo Video
 *(Demo Video Placeholder - link to YouTube/Vimeo)*
 ### Demo GIF
-![Demo GIF Placeholder](docs/assets/demo_gif_placeholder.gif)
+![Demo GIF Placeholder](https://via.placeholder.com/800x450?text=CreatorMind+AI+Demo)
 
 ### Dashboards
 | Dashboard View | Writing Studio |
 |----------------|----------------|
-| ![Dashboard](docs/assets/dashboard_placeholder.png) | ![Studio](docs/assets/studio_placeholder.png) |
+| ![Dashboard](https://via.placeholder.com/600x400?text=Dashboard) | ![Studio](https://via.placeholder.com/600x400?text=Writing+Studio) |
 
 ## 🧠 IBM Granite Integration
 CreatorMind totally bypasses standard OpenAI paradigms. It strictly wraps connection payloads directly to IBM's Granite models (e.g., `granite-13b-chat-v2`). The AI Adapter binds explicitly to structure generation tasks natively optimized for enterprise reliability.
