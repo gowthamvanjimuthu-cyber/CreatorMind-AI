@@ -57,15 +57,22 @@
 - [License & Acknowledgements](#license--acknowledgements)
 
 ---
+<a id="project-overview"></a>
 
 ## 🌍 Project Overview
 CreatorMind AI is engineered for the **IBM AI Builders Challenge**. It is an advanced Retrieval-Augmented Generation (RAG) platform that ingests unstructured documents, mathematically extracts an author's tone using **IBM Granite**, and binds these persona traits into all future LLM generations—resulting in zero hallucination, pure voice-cloning content creation.
 
+<a id="problem-statement"></a>
+
 ## ⚠️ Problem Statement
 Scaling content creation inevitably dilutes an author's authentic voice. Relying on generic LLM prompts results in flat, impersonal writing lacking the nuanced formatting, reading level, and unique rhythm of the original creator.
 
+<a id="solution"></a>
+
 ## 💡 Solution
 A highly isolated, multi-tenant memory engine that dynamically constructs a strict Creator Persona schema by utilizing off-band inferences via **IBM Watsonx**. Every future request sent to the Writing Studio forces the LLM to route its knowledge through the constraints of this extracted persona.
+
+<a id="key-features"></a>
 
 ## 🚀 Key Features
 - **Deterministic Style Extraction:** Asynchronous extraction of tone, pacing, and vocabulary metrics.
@@ -87,11 +94,15 @@ A highly isolated, multi-tenant memory engine that dynamically constructs a stri
 | ⚙️ Settings | Manage account preferences and application configuration. |
 
 
+<a id="technology-stack"></a>
+
 ## 🛠️ Technology Stack
 - **Frontend Layer:** React, Vite, TypeScript, TailwindCSS, Zustand
 - **Backend API:** FastAPI, Pydantic, Python 3.10
 - **AI / LLM Subsystem:** IBM Watsonx / Granite Models
 - **Database / RAG:** ChromaDB (Semantic Search), SQLite / SQLAlchemy
+
+<a id="architecture-overview"></a>
 
 ## 📐 Architecture Overview
 
@@ -103,6 +114,8 @@ A highly isolated, multi-tenant memory engine that dynamically constructs a stri
 4. **Style Analyzer:** Extracts a subset of chunks, passes to **IBM Granite**, and returns structured JSON Persona Traits.
 5. **Prompt Composer:** Synthesizes the RAG context against the Persona Traits bounding Granite to strict outputs.
 
+<a id="folder-structure"></a>
+
 ## 📁 Folder Structure
 ```text
 CreatorMind/
@@ -112,11 +125,15 @@ CreatorMind/
 └── .github/          # CI/CD, Issue Templates
 ```
 
+<a id="installation"></a>
+
 ## ⚙️ Installation
 **Prerequisites:** Node.js 18+, Python 3.10+, SQLite3.
 1. Clone the repository natively:
    `git clone https://github.com/gowthamvanjimuthu-cyber/CreatorMind.git`
 2. Configure `.env` inside `/backend` (refer below).
+
+<a id="running-locally"></a>
 
 ## 🏃 Running Locally
 **Backend:**
@@ -133,13 +150,16 @@ npm install
 npm run dev
 ```
 
+<a id="environment-variables"></a>
+
 ## 🔐 Environment Variables
 In `backend/.env`, populate the following:
 ```env
 CHROMA_DB_DIR=./chroma_data
 ```
-## 📷 Screenshots & Demo
+<a id="screenshots--demo"></a>
 
+## 📷 Screenshots & Demo
 ### 🔐 Login
 
 ![Login](docs/assets/screenshots/1-login.png)
@@ -194,16 +214,23 @@ CHROMA_DB_DIR=./chroma_data
 
 ---
 
+<a id="demo"></a>
 ### 🎥 Demo Video
 🎥 **Demo Video:** https://youtu.be/your-video-link
 ### Demo GIF
 ![CreatorMind Demo](docs/assets/demo/creatormind-demo.gif)
 
+<a id="ibm-granite-integration"></a>
+
 ## 🧠 IBM Granite Integration
 CreatorMind totally bypasses standard OpenAI paradigms. It strictly wraps connection payloads directly to IBM's Granite models (e.g., `granite-13b-chat-v2`). The AI Adapter binds explicitly to structure generation tasks natively optimized for enterprise reliability.
 
+<a id="rag-pipeline"></a>
+
 ## 📚 RAG Pipeline
 Powered by ChromaDB. When a document uploads, it is parsed by Document Processors (10MB limits), recursively chunked into 1000 characters, embedded, and tagged tightly with `$and` query clauses guaranteeing total multi-tenant vector isolation securely mapped.
+
+<a id="creator-profile"></a>
 
 ## 👤 Creator Profile
 
@@ -221,16 +248,24 @@ CreatorMind AI analyzes uploaded creator content to build a personalized AI pers
 
 These insights are injected into every AI generation, ensuring content closely matches the creator's unique voice and style.
 
+<a id="deployment"></a>
+
 ## 🚢 Deployment
 Ships production-ready using ASGI workers bounded by Gunicorn across Docker containers. Detailed deployment architectures (migrating from SQLite to Postgres) reside in `docs/DEPLOYMENT_GUIDE.md`.
+
+<a id="future-roadmap"></a>
 
 ## 🔮 Future Roadmap
 - [ ] Migrate `InMemory` Profile caches into distributed `Redis`.
 - [ ] Offload heavy background RAG ingestion toward headless `Celery` workers.
 - [ ] Incorporate semantic search against historical Chat Histories (Multi-Vector indexing).
 
+<a id="contributors"></a>
+
 ## 🤝 Contributors
 Contributions are entirely welcome! Reference the [CONTRIBUTING.md](CONTRIBUTING.md) guide and adhere to our [CODE OF CONDUCT](CODE_OF_CONDUCT.md).
+
+<a id="license--acknowledgements"></a>
 
 ## 📜 License & Acknowledgements
 Built under the **MIT License**.
