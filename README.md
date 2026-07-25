@@ -1,5 +1,4 @@
 <div align="center">
-  <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI"> </a>
     <img src="docs/assets/banners/CreatorMindAI_Banner.png" alt="CreatorMind AI Banner" width="100%">
   
   <br />
@@ -237,9 +236,13 @@ CHROMA_DB_DIR=./chroma_data
 ---
 
 <a id="demo"></a>
+
 ### 🎥 Demo Video
+
 🎥 **Demo Video:** https://youtu.be/your-video-link
-### Demo GIF
+
+### 🎬 Demo GIF
+
 ![CreatorMind Demo](docs/assets/demo/creatormind-demo.gif)
 
 <a id="ibm-granite-integration"></a>
