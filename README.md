@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind">
-    <img src="https://via.placeholder.com/1200x300?text=CreatorMind+AI" alt="CreatorMind AI Banner" width="100%">
+    <img src="docs/assets/banners/CreatorMindAI_Banner.png" alt="CreatorMind AI Banner" width="100%">
   </a>
   <br />
   <br />
