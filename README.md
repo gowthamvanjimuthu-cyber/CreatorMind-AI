@@ -24,13 +24,33 @@
    <a href="https://www.python.org/">
   <img src="https://img.shields.io/badge/Python-3.10+-blue.svg?logo=python&logoColor=white" alt="Python">
 </a>
-    <img src="https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi" alt="FastAPI">
-    <img src="https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB" alt="React">
-    <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" alt="TypeScript">
-    <img src="https://img.shields.io/badge/IBM_Granite-0F62FE?style=flat&logo=ibm&logoColor=white" alt="IBM Granite">
-    <img src="https://img.shields.io/badge/ChromaDB-FF4F00?style=flat&logo=chroma" alt="ChromaDB">
-    <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white" alt="Supabase">
-    <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker">
+   <a href="https://fastapi.tiangolo.com/">
+  <img src="https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi" alt="FastAPI">
+</a>
+
+<a href="https://react.dev/">
+  <img src="https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB" alt="React">
+</a>
+
+<a href="https://www.typescriptlang.org/">
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" alt="TypeScript">
+</a>
+
+<a href="https://www.ibm.com/watsonx">
+  <img src="https://img.shields.io/badge/IBM_Granite-0F62FE?style=flat&logo=ibm&logoColor=white" alt="IBM Granite">
+</a>
+
+<a href="https://www.trychroma.com/">
+  <img src="https://img.shields.io/badge/ChromaDB-FF4F00?style=flat&logo=chroma" alt="ChromaDB">
+</a>
+
+<a href="https://supabase.com/">
+  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white" alt="Supabase">
+</a>
+
+<a href="https://www.docker.com/">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker">
+</a>
     <a href="LICENSE.md"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
   </p>
 </div>
