@@ -49,8 +49,8 @@
 - [Screenshots & Demo](#-screenshots--demo)
 - [IBM Granite Integration](#-ibm-granite-integration)
 - [RAG Pipeline](#-rag-pipeline)
-- [Writing Studio & Profile](#-writing-studio--profile)
-- [Dashboard & Deployment](#-dashboard--deployment)
+- [Creator Profile](#-creator-profile)
+- [Deployment](#-deployment)
 - [Future Roadmap](#-future-roadmap)
 - [Contributors](#-contributors)
 - [License & Acknowledgements](#-license--acknowledgements)
@@ -73,6 +73,19 @@ A highly isolated, multi-tenant memory engine that dynamically constructs a stri
 - **FastAPI SSE Streaming:** Extremely low-latency Server-Sent Events typing directly into the React UI.
 - **Granular Dashboard Analytics:** Real-time generation tracing, average inference latency, and vector load times.
 
+## ✨ Feature Showcase
+
+| Feature | Description |
+|---------|-------------|
+| 📚 Knowledge Library | Upload PDFs, DOCX, and TXT files for AI knowledge retrieval. |
+| 💬 AI Workspace | Chat with IBM Granite using Retrieval-Augmented Generation (RAG). |
+| ✍️ Writing Studio | Generate blogs, LinkedIn posts, tweets, newsletters, and more. |
+| 👤 Creator Profile | Learns writing style, tone, and audience from uploaded content. |
+| 📊 Analytics Dashboard | Track content generation and workspace activity. |
+| 📅 Calendar | Plan and organize publishing schedules. |
+| ⚙️ Settings | Manage account preferences and application configuration. |
+
+
 ## 🛠️ Technology Stack
 - **Frontend Layer:** React, Vite, TypeScript, TailwindCSS, Zustand
 - **Backend API:** FastAPI, Pydantic, Python 3.10
@@ -80,7 +93,9 @@ A highly isolated, multi-tenant memory engine that dynamically constructs a stri
 - **Database / RAG:** ChromaDB (Semantic Search), SQLite / SQLAlchemy
 
 ## 📐 Architecture Overview
-![Architecture Diagram Placeholder](https://via.placeholder.com/1200x600?text=System+Architecture+Diagram)
+
+![CreatorMind AI Architecture](docs/assets/diagrams/system-architecture.png)
+
 1. **Frontend:** Dispatches requests spanning multiple workspace UUIDs. 
 2. **Knowledge Service:** Receives `.pdf` uploads, executing `RecursiveCharacterTextSplitter`.
 3. **ChromaDB:** Ingests chunks attached with tight metadata clauses (strict `$and` tenant bounds).
@@ -120,23 +135,69 @@ npm run dev
 ## 🔐 Environment Variables
 In `backend/.env`, populate the following:
 ```env
-JWT_SECRET=your_jwt_secret
-DATABASE_URL=sqlite:///./creatormind.db
-WATSONX_API_KEY=your_ibm_key
-WATSONX_PROJECT_ID=your_ibm_project
 CHROMA_DB_DIR=./chroma_data
 ```
-
 ## 📷 Screenshots & Demo
-### Demo Video
-*(Demo Video Placeholder - link to YouTube/Vimeo)*
-### Demo GIF
-![Demo GIF Placeholder](https://via.placeholder.com/800x450?text=CreatorMind+AI+Demo)
 
-### Dashboards
-| Dashboard View | Writing Studio |
-|----------------|----------------|
-| ![Dashboard](https://via.placeholder.com/600x400?text=Dashboard) | ![Studio](https://via.placeholder.com/600x400?text=Writing+Studio) |
+### 🔐 Login
+
+![Login](docs/assets/screenshots/1-login.png)
+
+---
+
+### 📊 Dashboard
+
+![Dashboard](docs/assets/screenshots/2-dashboard.png)
+
+---
+
+### 📚 Knowledge Library
+
+![Knowledge Library](docs/assets/screenshots/3-knowledge-library.png)
+
+---
+
+### 💬 AI Workspace
+
+![Workspace](docs/assets/screenshots/4-workspace-chat.png)
+
+---
+
+### ✍️ Writing Studio
+
+![Writing Studio](docs/assets/screenshots/5-writing-studio.png)
+
+---
+
+### 📈 Analytics
+
+![Analytics](docs/assets/screenshots/6-analytics.png)
+
+---
+
+### 📅 Calendar
+
+![Calendar](docs/assets/screenshots/7-calendar.png)
+
+---
+
+### 👤 Profile
+
+![Profile](docs/assets/screenshots/8-profile.png)
+
+---
+
+### ⚙️ Settings
+
+![Settings](docs/assets/screenshots/9-setting.png)
+
+---
+
+### 🎥 Demo Video
+🎥 **Demo Video:** https://youtu.be/your-video-link
+### Demo GIF
+
+![CreatorMind Demo](docs/assets/demo/creatormind-demo.gif)
 
 ## 🧠 IBM Granite Integration
 CreatorMind totally bypasses standard OpenAI paradigms. It strictly wraps connection payloads directly to IBM's Granite models (e.g., `granite-13b-chat-v2`). The AI Adapter binds explicitly to structure generation tasks natively optimized for enterprise reliability.
@@ -144,8 +205,21 @@ CreatorMind totally bypasses standard OpenAI paradigms. It strictly wraps connec
 ## 📚 RAG Pipeline
 Powered by ChromaDB. When a document uploads, it is parsed by Document Processors (10MB limits), recursively chunked into 1000 characters, embedded, and tagged tightly with `$and` query clauses guaranteeing total multi-tenant vector isolation securely mapped.
 
-## ✍️ Writing Studio & Creator Profile
-The absolute brain of the application. The system generates customized outputs (LinkedIn Posts, Blogs) matching exactly your `reading_level`, `tone`, and `target_audience`.
+## 👤 Creator Profile
+
+![Creator Profile](docs/assets/screenshots/8-profile.png)
+
+CreatorMind AI analyzes uploaded creator content to build a personalized AI persona by extracting:
+
+- Writing style
+- Tone
+- Target audience
+- Reading level
+- Sentence structure
+- Formatting habits
+- Vocabulary complexity
+
+These insights are injected into every AI generation, ensuring content closely matches the creator's unique voice and style.
 
 ## 🚢 Deployment
 Ships production-ready using ASGI workers bounded by Gunicorn across Docker containers. Detailed deployment architectures (migrating from SQLite to Postgres) reside in `docs/DEPLOYMENT_GUIDE.md`.
