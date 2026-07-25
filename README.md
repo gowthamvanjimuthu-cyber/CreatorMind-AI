@@ -5,7 +5,7 @@
   <br />
   <br />
 
-  <img src="https://via.placeholder.com/120x120?text=CM" alt="CreatorMind Logo" width="120" height="120">
+  <img src="docs/assets/logos/CreatorMindAI_Logo.png" alt="CreatorMind Logo" width="120" height="120">
 
   <h1 align="center">CreatorMind AI</h1>
 
