@@ -1,7 +1,7 @@
 <div align="center">
-  <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind">
+  <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI"> </a>
     <img src="docs/assets/banners/CreatorMindAI_Banner.png" alt="CreatorMind AI Banner" width="100%">
-  </a>
+  
   <br />
   <br />
 
@@ -13,9 +13,9 @@
     <strong>A next-generation AI content engine that clones, retains, and scales a creator's unique voice using IBM Watsonx and RAG.</strong>
     <br />
     <br />
-    <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind/issues">Bug Report</a>
+    <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI/issues">Bug Report</a>
     ·
-    <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind/issues">Feature Request</a>
+    <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI/issues">Feature Request</a>
     ·
     <a href="#demo">View Demo</a>
   </p>
@@ -130,7 +130,7 @@ CreatorMind/
 ## ⚙️ Installation
 **Prerequisites:** Node.js 18+, Python 3.10+, SQLite3.
 1. Clone the repository natively:
-   `git clone https://github.com/gowthamvanjimuthu-cyber/CreatorMind.git`
+   `git clone https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI.git`
 2. Configure `.env` inside `/backend` (refer below).
 
 <a id="running-locally"></a>
