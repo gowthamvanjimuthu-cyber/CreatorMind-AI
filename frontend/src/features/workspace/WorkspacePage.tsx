@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { PageContainer } from '../../shared/components/PageContainer';
-import { Send, Bot, User, Loader2, FileQuote, XCircle, RotateCw } from 'lucide-react';
+import { Send, Bot, User, Loader2, Quote, XCircle, RotateCw } from 'lucide-react';
 import { fetchStream, StreamEvent } from '../../shared/utils/stream';
 import { useWorkspaceStore } from '../workspaces/useWorkspaceStore';
 
@@ -249,7 +249,7 @@ export function WorkspacePage() {
                     <p className="text-xs font-semibold text-neutral-400 uppercase tracking-tighter">Retrieved Context ({msg.citations.length} chunks)</p>
                     {msg.citations.map((cit, idx) => (
                       <div key={idx} className="bg-neutral-50 border border-neutral-100 rounded p-2 text-xs text-neutral-600 flex items-start">
-                        <FileQuote className="w-3 h-3 mr-2 mt-0.5 text-neutral-400 flex-shrink-0" />
+                        <Quote className="w-3 h-3 mr-2 mt-0.5 text-neutral-400 flex-shrink-0" />
                         <div>
                           <span className="font-semibold">{cit.source}</span> (Idx: {cit.chunk_index})<br />
                           <span className="text-neutral-500 italic mt-0.5 block">{cit.text_preview}</span>

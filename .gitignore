@@ -19,6 +19,7 @@ venv/
 .venv/
 env/
 ENV/
+backend/venv311/
 *.egg-info/
 dist/
 build/

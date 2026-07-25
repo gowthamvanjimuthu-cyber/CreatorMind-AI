@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BrainCircuit } from 'lucide-react';
 import { loginAPI, getMeAPI } from './api';
 import { useAuthStore } from '../../shared/hooks/useAuth';
+import { getDefaultWorkspaceAPI } from '../workspaces/api/workspaces.api';
+import { useWorkspaceStore } from '../workspaces/useWorkspaceStore';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -11,6 +13,7 @@ export function LoginPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { setAuth } = useAuthStore();
+  const { setActiveWorkspace } = useWorkspaceStore();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,11 +21,23 @@ export function LoginPage() {
     setError('');
     try {
       const data = await loginAPI({ email, password });
-      // Temporarily set token so the /auth/me call is authenticated
+
+      // Store token first
       setAuth(data.access_token, { email, id: '' });
-      // Fetch the real user profile from Supabase via the backend
+
+      // Load user
       const userProfile = await getMeAPI();
-      setAuth(data.access_token, { email: userProfile.email, id: userProfile.id });
+
+      setAuth(data.access_token, {
+        email: userProfile.email,
+        id: userProfile.id
+      });
+
+      // Load default workspace
+      const workspace = await getDefaultWorkspaceAPI();
+      setActiveWorkspace(workspace);
+
+      // Go to dashboard
       navigate('/');
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Invalid credentials');

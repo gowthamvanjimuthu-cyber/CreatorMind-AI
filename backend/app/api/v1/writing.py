@@ -65,30 +65,51 @@ def generate_content(
 
 @router.get("/drafts")
 def get_drafts(
-    workspace_id: str = Query(...),
+    workspace_id: Optional[str] = Query(None),
     page: int = Query(1, ge=1),
     limit: int = Query(10, ge=1),
     current_user = Depends(get_current_user)
 ):
     with SessionLocal() as db:
-        # Show only latest versions (where parent_id is null basically, or we can just group by parent_id)
-        # For simplicity, we just list parents, or anything without a parent_id to act as the head
-        query = db.query(WritingGeneration).filter_by(user_id=current_user.id, workspace_id=workspace_id, parent_id=None).order_by(WritingGeneration.created_at.desc())
-        
+
+        query = db.query(WritingGeneration).filter(
+            WritingGeneration.user_id == current_user.id,
+            WritingGeneration.parent_id == None
+        )
+
+        if workspace_id:
+            query = query.filter(
+                WritingGeneration.workspace_id == workspace_id
+            )
+
+        query = query.order_by(
+            WritingGeneration.created_at.desc()
+        )
+
         total = query.count()
-        drafts = query.offset((page - 1) * limit).limit(limit).all()
-        
+
+        drafts = query.offset(
+            (page - 1) * limit
+        ).limit(limit).all()
+
         return {
             "total": total,
             "page": page,
             "limit": limit,
             "items": [
                 {
-                    "id": d.id, "content_type": d.content_type, "topic": d.topic, "status": d.status,
-                    "is_favorite": d.is_favorite, "created_at": d.created_at.isoformat(),
-                    "generation_time": d.generation_time, "style_match_score": d.style_match_score,
-                    "confidence_score": d.confidence_score, "generated_content": d.generated_content,
-                    "citations": d.citations, "source_documents": d.source_documents
+                    "id": d.id,
+                    "content_type": d.content_type,
+                    "topic": d.topic,
+                    "status": d.status,
+                    "is_favorite": d.is_favorite,
+                    "created_at": d.created_at.isoformat(),
+                    "generation_time": d.generation_time,
+                    "style_match_score": d.style_match_score,
+                    "confidence_score": d.confidence_score,
+                    "generated_content": d.generated_content,
+                    "citations": d.citations,
+                    "source_documents": d.source_documents
                 }
                 for d in drafts
             ]
@@ -210,7 +231,13 @@ Additional instructions from the creator: {action_text or inst or 'None.'}
         history=active_ctx
     )
     
-    sources = [{"source": r.metadata.get("source", "Unknown"), "chunk_index": r.metadata.get("chunk_index", 0)} for r in raw_chunks]
+    sources = [
+    {
+        "source": r.get("metadata", {}).get("source", "Unknown"),
+        "chunk_index": r.get("metadata", {}).get("chunk_index", 0)
+    }
+    for r in raw_chunks
+]
     style_match = round(profile.confidence_score * 100)
 
     async def event_generator():

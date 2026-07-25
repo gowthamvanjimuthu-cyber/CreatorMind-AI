@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import { 
-  Home, BookOpen, PenTool, Folder, 
-  Calendar, BarChart2, Settings, BrainCircuit 
+import {
+  Home, BookOpen, PenTool, Folder,
+  Calendar, BarChart2, Settings, BrainCircuit, PenLine
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -9,6 +9,7 @@ const navItems = [
   { label: 'Dashboard', icon: Home, to: '/' },
   { label: 'Knowledge Base', icon: BookOpen, to: '/knowledge' },
   { label: 'AI Workspace', icon: PenTool, to: '/workspace' },
+  { label: 'Writing Studio', icon: PenLine, to: '/studio' },
   { label: 'Content Library', icon: Folder, to: '/library' },
   { label: 'Calendar', icon: Calendar, to: '/calendar' },
   { label: 'Analytics', icon: BarChart2, to: '/analytics' },
@@ -45,9 +46,9 @@ export function Sidebar() {
           className="flex items-center px-3 py-2 rounded-md hover:bg-neutral-100 transition-colors mt-2"
         >
           <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-medium text-sm">
-            AS
+            GK
           </div>
-          <span className="ml-3 text-sm font-medium text-neutral-700">Anika Sharma</span>
+          <span className="ml-3 text-sm font-medium text-neutral-700">Gowtham K</span>
         </NavLink>
       </div>
     </aside>
@@ -60,8 +61,8 @@ function NavItem({ label, icon: Icon, to }: { label: string; icon: any; to: stri
       to={to}
       className={({ isActive }) => clsx(
         "flex items-center px-3 py-2 rounded-md transition-colors font-medium text-sm",
-        isActive 
-          ? "bg-indigo-50 text-indigo-700 font-semibold" 
+        isActive
+          ? "bg-indigo-50 text-indigo-700 font-semibold"
           : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
       )}
     >

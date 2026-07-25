@@ -59,8 +59,9 @@ def ask_question(
             workspace_id=req.workspace_id,
             title=req.question[:60]
         )
+    conversation_id = conv.id
 
-    ConversationRepository.add_message(db, conv.id, role="user", content=req.question)
+    ConversationRepository.add_message(db, conversation_id, role="user", content=req.question)
 
     query = RetrievalQuery(
         query_text=req.question,
@@ -95,9 +96,14 @@ def ask_question(
     ]
     sources_list = [{"source": c.source, "chunk_index": c.chunk_index} for c in citations]
 
-    ConversationRepository.add_message(db, conv.id, role="ai",
-                                        content=answer, sources=sources_list,
-                                        latency=round(time.time() - start, 2))
+    ConversationRepository.add_message(
+    db,
+    conversation_id,
+    role="ai",
+    content=answer,
+    sources=sources_list,
+    latency=round(time.time() - start, 2)
+)
 
     return ChatResponse(
         conversation_id=conv.id,
@@ -133,8 +139,14 @@ async def ask_question_stream(
             workspace_id=req.workspace_id,
             title=req.question[:60]
         )
+    conversation_id = conv.id
 
-    ConversationRepository.add_message(db, conv.id, role="user", content=req.question)
+    ConversationRepository.add_message(
+    db,
+    conversation_id,
+    role="user",
+    content=req.question
+)
 
     # ── RAG retrieval (synchronous — fast) ───────────────────────
     query = RetrievalQuery(
@@ -164,7 +176,11 @@ async def ask_question_stream(
         accumulated = ""
         try:
             # Phase 1: Thinking
-            yield f"data: {json.dumps({'type': 'status', 'status': 'thinking', 'conversation_id': conv.id})}\n\n"
+            yield f"data: {json.dumps({
+    'type': 'status',
+    'status': 'thinking',
+    'conversation_id': conversation_id
+})}\n\n"
 
             # Phase 2: Generating (stream tokens)
             yield f"data: {json.dumps({'type': 'status', 'status': 'generating'})}\n\n"
@@ -189,7 +205,7 @@ async def ask_question_stream(
             with SessionLocal() as persist_db:
                 sources_list = [{"source": c["source"], "chunk_index": c["chunk_index"]} for c in citations]
                 ConversationRepository.add_message(
-                    persist_db, conv.id, role="ai",
+                    persist_db, conversation_id, role="ai",
                     content=accumulated.strip(),
                     sources=sources_list,
                     latency=elapsed

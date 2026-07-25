@@ -12,6 +12,7 @@ const RegisterPage = lazy(() => import('../features/auth/RegisterPage').then(m =
 const DashboardPage = lazy(() => import('../features/dashboard/DashboardPage').then(m => ({ default: m.DashboardPage })));
 const KnowledgePage = lazy(() => import('../features/knowledge/KnowledgePage').then(m => ({ default: m.KnowledgePage })));
 const WorkspacePage = lazy(() => import('../features/workspace/WorkspacePage').then(m => ({ default: m.WorkspacePage })));
+const StudioPage = lazy(() => import('../features/studio/StudioPage').then(m => ({ default: m.StudioPage })));
 const LibraryPage = lazy(() => import('../features/library/LibraryPage').then(m => ({ default: m.LibraryPage })));
 const CalendarPage = lazy(() => import('../features/calendar/CalendarPage').then(m => ({ default: m.CalendarPage })));
 const AnalyticsPage = lazy(() => import('../features/analytics/AnalyticsPage').then(m => ({ default: m.AnalyticsPage })));
@@ -47,6 +48,8 @@ const router = createBrowserRouter([
           { index: true, element: <Suspense fallback={<LoadingScreen />}><DashboardPage /></Suspense> },
           { path: 'knowledge', element: <Suspense fallback={<LoadingScreen />}><KnowledgePage /></Suspense> },
           { path: 'workspace', element: <Suspense fallback={<LoadingScreen />}><WorkspacePage /></Suspense> },
+          { path: 'studio', element: <Suspense fallback={<LoadingScreen />}><StudioPage /></Suspense> },
+          { path: 'writing', element: <Suspense fallback={<LoadingScreen />}><StudioPage /></Suspense> },
           { path: 'library', element: <Suspense fallback={<LoadingScreen />}><LibraryPage /></Suspense> },
           { path: 'calendar', element: <Suspense fallback={<LoadingScreen />}><CalendarPage /></Suspense> },
           { path: 'analytics', element: <Suspense fallback={<LoadingScreen />}><AnalyticsPage /></Suspense> },

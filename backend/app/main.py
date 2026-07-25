@@ -1,11 +1,16 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+
 from app.core.config import settings
 from app.middleware.observability import ObservabilityMiddleware
 from app.middleware.rate_limit import RateLimitMiddleware
-from app.api.v1 import documents, chat, writing, profile, conversations, workspaces, dashboard
+from app.api.v1 import ai, auth, documents, chat, writing, profile, conversations, workspaces, dashboard
 from app.api.v1 import rag as rag_router
+from app.db.session import init_db
+from fastapi.security import HTTPBearer
+
+bearer_scheme = HTTPBearer()
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -13,6 +18,11 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+# ── Database Initialization ───────────────────────────────────────
+@app.on_event("startup")
+def on_startup():
+    init_db()
 
 # ── Middleware (order matters: outermost runs first) ──────────────
 app.add_middleware(ObservabilityMiddleware)
@@ -26,6 +36,8 @@ app.add_middleware(
 )
 
 # ── Routers ───────────────────────────────────────────────────────
+app.include_router(auth.router, prefix="/api/v1")
+app.include_router(ai.router, prefix="/api/v1")
 app.include_router(documents.router,  prefix="/api/v1")
 app.include_router(chat.router,       prefix="/api/v1")
 app.include_router(writing.router,    prefix="/api/v1")
@@ -39,3 +51,4 @@ app.include_router(rag_router.router, prefix="/api/v1")
 @app.get("/health", tags=["System"])
 def health():
     return {"status": "healthy", "service": settings.APP_NAME, "version": settings.VERSION}
+

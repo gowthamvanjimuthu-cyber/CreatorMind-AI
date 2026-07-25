@@ -6,7 +6,7 @@ type Workspace = { id: string; name: string; description: string };
 interface WorkspaceState {
   activeWorkspace: Workspace | null;
   workspaces: Workspace[];
-  setActiveWorkspace: (ws: Workspace) => void;
+  setActiveWorkspace: (ws: Workspace | null) => void;
   setWorkspaces: (list: Workspace[]) => void;
 }
 
