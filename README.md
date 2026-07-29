@@ -281,10 +281,6 @@ Watch the complete walkthrough here:
 
 **YouTube:** https://youtu.be/pXBiXIN5rHU?si=kZACfiaoSM8IGOiC
 
-### 🎬 Demo GIF
-
-![CreatorMind Demo](docs/assets/demo/creatormind-demo.gif)
-
 <a id="ibm-granite-integration"></a>
 
 ## 🧠 IBM Granite Integration
