@@ -9,7 +9,7 @@
   <h1 align="center">CreatorMind AI</h1>
 
   <p align="center">
-    <strong>A next-generation AI content engine that clones, retains, and scales a creator's unique voice using IBM Watsonx and RAG.</strong>
+    <strong>A next-generation AI content engine that learns, preserves, and scales a creator's unique voice using IBM watsonx and RAG.</strong>
     <br />
     <br />
     <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI/issues">Bug Report</a>
@@ -61,8 +61,10 @@
 - [Project Overview](#project-overview)
 - [Problem Statement](#problem-statement)
 - [Solution](#solution)
+- [Why CreatorMind AI](#why-creatormind-ai)
 - [Key Features](#key-features)
 - [Technology Stack](#technology-stack)
+- [IBM Technology Usage](#ibm-technology)
 - [Architecture Overview](#architecture-overview)
 - [Folder Structure](#folder-structure)
 - [Installation](#installation)
@@ -101,6 +103,19 @@ CreatorMind AI combines document ingestion, semantic search, creator profiling, 
 
 Uploaded documents are processed through a RAG pipeline, stored in ChromaDB, and retrieved whenever relevant. A creator profile captures writing style, tone, and preferences so generated content better reflects the creator's unique voice.
 
+<a id="why-creatormind-ai"></a>
+
+## 🌟 Why CreatorMind AI?
+
+Most AI writing tools generate generic content. CreatorMind AI focuses on preserving creator identity by combining:
+
+- Personal knowledge retrieval
+- Creator profile analysis
+- RAG-based generation
+- Style-aware prompting
+
+This enables creators to scale content production while maintaining consistency and authenticity.
+
 <a id="key-features"></a>
 
 ## 🚀 Key Features
@@ -115,7 +130,7 @@ Uploaded documents are processed through a RAG pipeline, stored in ChromaDB, and
 | Feature | Description |
 |---------|-------------|
 | 📚 Knowledge Library | Upload PDFs, DOCX, and TXT files for AI knowledge retrieval. |
-| 💬 AI Workspace | Chat with IBM Granite using Retrieval-Augmented Generation (RAG). |
+| 💬 AI Workspace | Chat with an RAG-powered AI assistant using IBM Granite-compatible architecture. |
 | ✍️ Writing Studio | Generate blogs, LinkedIn posts, tweets, newsletters, and more. |
 | 👤 Creator Profile | Learns writing style, tone, and audience from uploaded content. |
 | 📊 Analytics Dashboard | Track content generation and workspace activity. |
@@ -136,13 +151,27 @@ Uploaded documents are processed through a RAG pipeline, stored in ChromaDB, and
 | AI Models | IBM watsonx Granite / Mock Provider |
 | Deployment | Docker |
 
+<a id="ibm-technology"></a>
+
+## 🏢 IBM Technology Usage
+
+CreatorMind AI leverages IBM technologies to build an enterprise-ready AI content platform.
+
+| IBM Technology | Usage |
+|---|---|
+| IBM watsonx Granite | AI content generation and creator-style-aware responses |
+| IBM watsonx AI architecture | Designed for enterprise AI workflow integration |
+| Granite-compatible LLM pipeline | Supports configurable model providers |
+
+The application architecture is designed to connect with IBM watsonx Granite models through backend configuration.
+
 <a id="architecture-overview"></a>
 
 ## 📐 Architecture Overview
 
 ![CreatorMind AI Architecture](docs/assets/architecture/system-architecture.png)
 
-1. **Frontend:** Dispatches requests spanning multiple workspace UUIDs. 
+1. **Frontend:** Provides the interface for authentication, knowledge management, AI workspace, and content generation workflows.
 2. **Knowledge Service:** Receives `.pdf` uploads, executing `RecursiveCharacterTextSplitter`.
 3. **ChromaDB:** Ingests chunks attached with tight metadata clauses (strict `$and` tenant bounds).
 4. **Style Analyzer:** Extracts a subset of chunks, passes to **IBM Granite**, and returns structured JSON Persona Traits.
@@ -370,8 +399,7 @@ Please read the [CONTRIBUTING.md](CONTRIBUTING.md) guide before submitting a pul
 
 ## 📜 License & Acknowledgements
 Built under the **MIT License**.
-A massive thank you to the **IBM AI Builders Challenge** for providing the Granite endpoints and enterprise scale inspiration!
-
+A massive thank you to the **IBM AI Builders Challenge** for inspiring innovation in enterprise AI solutions!
 ---
 
 <div align="center">
