@@ -279,7 +279,7 @@ CHROMA_DB_DIR=./chroma_data
 
 Watch the complete walkthrough here:
 
-**YouTube:** https://youtu.be/your-video-link
+**YouTube:** https://youtu.be/pXBiXIN5rHU?si=kZACfiaoSM8IGOiC
 
 ### 🎬 Demo GIF
 
