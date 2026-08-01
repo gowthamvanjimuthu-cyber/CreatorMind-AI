@@ -1,0 +1,1261 @@
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    /* === CSS Variables === */
+    :root {
+        /* Colors */
+        --bg-dark: #0f0f11;
+        --bg-card: rgba(25, 25, 30, 0.6);
+        --bg-card-hover: rgba(35, 35, 45, 0.8);
+        --accent-blue: #0F62FE;
+        --accent-glow: rgba(15, 98, 254, 0.3);
+        --text-main: #f4f4f5;
+        --text-muted: #a1a1aa;
+        
+        /* UI Elements */
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --radius-md: 12px;
+        --radius-lg: 20px;
+        --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        
+        /* Transitions */
+        --transition-fast: 0.2s ease;
+        --transition-main: 0.3s ease;
+        --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    /* === Reset & Base Styles === */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+        line-height: 1.6;
+        overflow-x: hidden;
+        position: relative;
+    }
+    /* === Typography === */
+    h1, h2, h3, h4, h5, h6 {
+        line-height: 1.2;
+        font-weight: 700;
+    }
+    .gradient-text {
+        background: linear-gradient(to right, #ffffff, #a1a1aa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .accent-text {
+        color: var(--accent-blue);
+    }
+    p {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+    }
+    /* === Reusable Classes === */
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    .section {
+        padding: 6rem 0;
+        position: relative;
+        z-index: 2;
+    }
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+    .section-header h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem 1.8rem;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition-main);
+        cursor: pointer;
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-primary {
+        background-color: var(--accent-blue);
+        color: white;
+        box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    .btn-primary:hover {
+        background-color: #0353e9;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px var(--accent-glow);
+    }
+    .btn-outline {
+        background: transparent;
+        color: white;
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
+    }
+    .btn-outline:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+    /* Ripple Effect */
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple-anim 600ms linear;
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+    @keyframes ripple-anim {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    /* Glass Card Utility */
+    .glass-card {
+        background: var(--bg-card);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-glass);
+        transition: var(--transition-main);
+    }
+    /* === 1. Navbar === */
+    nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 1.5rem 0;
+        transition: var(--transition-main);
+    }
+    nav.scrolled {
+        padding: 1rem 0;
+        background: rgba(15, 15, 17, 0.8);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--glass-border);
+    }
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: white;
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+    .nav-logo img {
+        height: 32px;
+        width: auto;
+    }
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+    }
+    .nav-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: var(--transition-fast);
+        position: relative;
+    }
+    .nav-links a:hover, .nav-links a.active {
+        color: white;
+    }
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: var(--accent-blue);
+        transition: var(--transition-main);
+    }
+    .nav-links a:hover::after, .nav-links a.active::after {
+        width: 100%;
+    }
+    
+    .hamburger {
+        display: none;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+    }
+    /* === Background Elements === */
+    .bg-blobs {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .blob {
+        position: absolute;
+        filter: blur(80px);
+        opacity: 0.5;
+        border-radius: 50%;
+        animation: float 20s infinite ease-in-out;
+    }
+    .blob-1 {
+        top: -10%;
+        left: -10%;
+        width: 40vw;
+        height: 40vw;
+        background: rgba(15, 98, 254, 0.15); /* IBM Blue */
+        animation-delay: 0s;
+    }
+    .blob-2 {
+        bottom: -20%;
+        right: -10%;
+        width: 50vw;
+        height: 50vw;
+        background: rgba(8, 189, 186, 0.1); /* Teal */
+        animation-delay: -5s;
+    }
+    .blob-3 {
+        top: 40%;
+        left: 60%;
+        width: 30vw;
+        height: 30vw;
+        background: rgba(138, 63, 252, 0.1); /* Purple */
+        animation-delay: -10s;
+    }
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+    /* === 2. Hero Section === */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: 5rem;
+        position: relative;
+    }
+    .hero-content {
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .hero-banner {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        border: 1px solid var(--glass-border);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 1s ease forwards 0.2s;
+    }
+    .hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        margin-bottom: 1.5rem;
+        letter-spacing: -1px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 1s ease forwards 0.4s;
+    }
+    /* Typing Animation wrapper */
+    .typing-wrapper {
+        display: inline-block;
+        min-width: 10px;
+    }
+    
+    .typewriter {
+        border-right: 2px solid var(--accent-blue);
+        white-space: nowrap;
+        overflow: hidden;
+        animation: blink 0.75s step-end infinite;
+    }
+    @keyframes blink { 50% { border-color: transparent } }
+    .hero p {
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        margin-bottom: 2.5rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 1s ease forwards 0.6s;
+    }
+    .hero-btns {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 1s ease forwards 0.8s;
+        flex-wrap: wrap;
+    }
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    /* === 3. About Section === */
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+    }
+    .about-text h3 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    .about-text p {
+        margin-bottom: 1rem;
+    }
+    .about-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 2rem;
+    }
+    .tag {
+        padding: 0.4rem 0.8rem;
+        background: rgba(15, 98, 254, 0.1);
+        color: #78a9ff;
+        border: 1px solid rgba(15, 98, 254, 0.2);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+    /* === 4. Statistics Section === */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+    .stat-card {
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        background: var(--bg-card-hover);
+    }
+    .stat-number {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--accent-blue);
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .stat-label {
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--text-muted);
+    }
+    /* === 5. Feature Cards === */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    .feature-card {
+        padding: 2.5rem 2rem;
+    }
+    .feature-card:hover {
+        transform: translateY(-10px);
+        background: var(--bg-card-hover);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        display: inline-block;
+    }
+    .feature-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+    .feature-card p {
+        font-size: 1rem;
+    }
+    /* === 6. Interactive Demo === */
+    .demo-container {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 2rem;
+        background: var(--bg-card);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        box-shadow: var(--shadow-glass);
+        min-height: 600px;
+    }
+    .demo-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        border-right: 1px solid var(--glass-border);
+        padding-right: 1rem;
+    }
+    .demo-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        text-align: left;
+        padding: 1rem;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: var(--transition-main);
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: inherit;
+    }
+    .demo-btn:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+    }
+    .demo-btn.active {
+        background: var(--accent-blue);
+        color: white;
+        box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    .demo-preview {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    
+    .demo-info {
+        margin-bottom: 1.5rem;
+        transition: opacity 0.3s ease;
+    }
+    
+    .demo-info h3 {
+        font-size: 1.5rem;
+        color: white;
+        margin-bottom: 0.5rem;
+    }
+    
+    .demo-info p {
+        font-size: 1rem;
+    }
+    .demo-image-container {
+        position: relative;
+        width: 100%;
+        flex-grow: 1;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        border: 1px solid var(--glass-border);
+        background: #000;
+    }
+    .demo-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+    .demo-img.active {
+        opacity: 1;
+    }
+    /* === 7. Architecture Section === */
+    .architecture-img {
+        width: 100%;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--shadow-glass);
+        margin-bottom: 3rem;
+        transition: transform 0.5s ease;
+    }
+    
+    .architecture-img:hover {
+        transform: scale(1.02);
+    }
+    .arch-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    .arch-desc h4 {
+        color: var(--accent-blue);
+        margin-bottom: 0.5rem;
+    }
+    /* === 8. Technology Stack === */
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1.5rem;
+    }
+    .tech-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem 1rem;
+        text-align: center;
+        background: var(--bg-card);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-md);
+        transition: var(--transition-main);
+    }
+    .tech-card:hover {
+        transform: translateY(-5px);
+        background: var(--bg-card-hover);
+        border-color: var(--accent-blue);
+        box-shadow: 0 10px 20px var(--accent-glow);
+    }
+    .tech-card span {
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    /* === 9. Video Section === */
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--shadow-glass);
+    }
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+    /* === 10. GitHub Section === */
+    .github-card {
+        text-align: center;
+        padding: 4rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .github-card h3 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    .github-card p {
+        margin-bottom: 2rem;
+    }
+    /* === 11. Footer === */
+    footer {
+        background: rgba(10, 10, 12, 0.9);
+        border-top: 1px solid var(--glass-border);
+        padding: 3rem 0;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    .social-links {
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .social-btn {
+        background: var(--bg-card);
+        border: 1px solid var(--glass-border);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        transition: var(--transition-fast);
+        font-size: 0.9rem;
+    }
+    
+    .social-btn:hover {
+        background: var(--bg-card-hover);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+    .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 50px;
+        height: 50px;
+        background: var(--accent-blue);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 4px 14px var(--accent-glow);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition-main);
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .back-to-top:hover {
+        transform: translateY(-5px);
+        background: #0353e9;
+    }
+    /* === Animation Classes (Intersection Observer) === */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    /* === Responsive Design === */
+    @media (max-width: 992px) {
+        .about-grid {
+            grid-template-columns: 1fr;
+        }
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .arch-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+        .demo-container {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr;
+        }
+        .demo-nav {
+            flex-direction: row;
+            overflow-x: auto;
+            border-right: none;
+            border-bottom: 1px solid var(--glass-border);
+            padding-right: 0;
+            padding-bottom: 1rem;
+        }
+        .demo-btn {
+            white-space: nowrap;
+            padding: 0.5rem 1rem;
+        }
+    }
+    @media (max-width: 768px) {
+        .hamburger {
+            display: block;
+        }
+        .nav-links {
+            position: fixed;
+            top: 70px;
+            left: -100%;
+            width: 100%;
+            height: calc(100vh - 70px);
+            background: rgba(15, 15, 17, 0.95);
+            backdrop-filter: blur(10px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-main);
+        }
+        .nav-links.active {
+            left: 0;
+        }
+        .hero-btns {
+            flex-direction: column;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .arch-grid {
+            grid-template-columns: 1fr;
+        }
+        .demo-container {
+            min-height: 500px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+        h1 {
+            font-size: 2.5rem !important;
+        }
+        .section-header h2 {
+            font-size: 2rem;
+        }
+    }
+    
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+</style>
+<!-- Background Blobs -->
+<div class="bg-blobs">
+<div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+<!-- 1. Sticky Navbar -->
+<nav id="navbar">
+    <div class="container nav-container">
+        <a href="#" class="nav-logo" aria-label="Home">
+            <img src="docs/assets/logos/CreatorMindAI_Logo.png" alt="CreatorMind AI Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iIzBGNjJGRSIvPjxwYXRoIGQ9Ik0zMCA1MGwyMCAyMCAzMC00MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvc3ZnPg=='">
+            <span>CreatorMind AI</span>
+        </a>
+        
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            ☰
+        </button>
+        
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#about" class="nav-item">About</a></li>
+            <li><a href="#features" class="nav-item">Features</a></li>
+            <li><a href="#interactive-demo" class="nav-item">Interactive Demo</a></li>
+            <li><a href="#architecture" class="nav-item">Architecture</a></li>
+            <li><a href="#technology" class="nav-item">Technology</a></li>
+            <li><a href="#video" class="nav-item">Video</a></li>
+            <li><a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI" target="_blank">GitHub</a></li>
+        </ul>
+    </div>
+</nav>
+<!-- 2. Hero Section -->
+<section class="hero" id="home">
+    <div class="container">
+        <div class="hero-content">
+            <img src="docs/assets/banners/CreatorMindAI_Banner.png" alt="CreatorMind AI Banner" class="hero-banner" onerror="this.style.display='none'">
+            
+            <h1 class="gradient-text">CreatorMind AI</h1>
+            
+            <div class="typing-wrapper">
+                <p class="typewriter" id="typewriter-text"></p>
+            </div>
+            
+            <div class="hero-btns">
+                <a href="#interactive-demo" class="btn btn-primary ripple-btn">Explore Demo</a>
+                <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI" target="_blank" class="btn btn-outline ripple-btn">GitHub Repository</a>
+                <a href="#video" class="btn btn-outline ripple-btn">Watch Video</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 3. About Section -->
+<section class="section" id="about">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="gradient-text">About The Platform</h2>
+            <p>Enterprise-grade architecture tailored for creative professionals.</p>
+        </div>
+        
+        <div class="about-grid reveal">
+            <div class="about-text">
+                <h3>Preserve & Scale Your <span class="accent-text">Unique Voice</span></h3>
+                <p>CreatorMind AI is a state-of-the-art content generation platform built upon an IBM Granite-compatible architecture. It utilizes an advanced Retrieval-Augmented Generation (RAG) pipeline to ingest, analyze, and learn from your past content.</p>
+                <p>Built with a robust full-stack foundation utilizing React, FastAPI, Supabase, and ChromaDB, the platform offers absolute data isolation and high-performance streaming AI responses.</p>
+                
+                <div class="about-tags">
+                    <span class="tag">Creator Profile</span>
+                    <span class="tag">Writing Studio</span>
+                    <span class="tag">Knowledge Library</span>
+                    <span class="tag">Analytics</span>
+                    <span class="tag">Calendar</span>
+                    <span class="tag">Settings</span>
+                </div>
+            </div>
+            <div class="glass-card p-4" style="padding: 2rem;">
+                <p style="color: white; font-style: italic; font-size: 1.2rem; border-left: 4px solid var(--accent-blue); padding-left: 1rem;">
+                    "The platform doesn't just generate text; it retrieves your specific context, analyzes your stylistic nuances, and synthesizes output that authentically sounds like you."
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 4. Statistics Section -->
+<section class="section bg-darker">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="glass-card stat-card reveal">
+                <div class="stat-number" data-target="9">0</div>
+                <div class="stat-label">Core Features</div>
+            </div>
+            <div class="glass-card stat-card reveal">
+                <div class="stat-number accent-text">RAG</div>
+                <div class="stat-label">Powered Pipeline</div>
+            </div>
+            <div class="glass-card stat-card reveal">
+                <div class="stat-number accent-text">FastAPI</div>
+                <div class="stat-label">Backend Architecture</div>
+            </div>
+            <div class="glass-card stat-card reveal">
+                <div class="stat-number accent-text">IBM</div>
+                <div class="stat-label">Granite Compatible</div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 5. Features Section -->
+<section class="section" id="features">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="gradient-text">Core Capabilities</h2>
+            <p>Everything you need to automate your content strategy.</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="glass-card feature-card reveal">
+                <div class="feature-icon">📚</div>
+                <h3>Knowledge Library</h3>
+                <p>Upload TXT, MD, PDF, or DOCX files. Documents are automatically chunked, embedded, and indexed into ChromaDB for immediate retrieval.</p>
+            </div>
+            
+            <div class="glass-card feature-card reveal">
+                <div class="feature-icon">💬</div>
+                <h3>AI Workspace</h3>
+                <p>Context-aware conversational interface. Ask questions about your documents and receive streamed answers with exact source citations.</p>
+            </div>
+            
+            <div class="glass-card feature-card reveal">
+                <div class="feature-icon">✍️</div>
+                <h3>Writing Studio</h3>
+                <p>Generate highly specific content types (Blogs, LinkedIn posts, Newsletters) with full version history and inline editing capabilities.</p>
+            </div>
+            
+            <div class="glass-card feature-card reveal">
+                <div class="feature-icon">🧠</div>
+                <h3>Creator Profile</h3>
+                <p>AI automatically analyzes your writing samples to extract your unique tone, common keywords, and stylistic preferences to guide future generation.</p>
+            </div>
+            
+            <div class="glass-card feature-card reveal">
+                <div class="feature-icon">📊</div>
+                <h3>Analytics Dashboard</h3>
+                <p>Visualize your content strategy with real-time metrics, style match confidence scores, and generation history timelines.</p>
+            </div>
+            
+            <div class="glass-card feature-card reveal">
+                <div class="feature-icon">⚙️</div>
+                <h3>Enterprise Security</h3>
+                <p>Strict multi-tenant workspace isolation using Supabase RLS policies and JWT authentication mapped to dedicated SQLite environment spaces.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 6. Interactive Demo Section -->
+<section class="section" id="interactive-demo">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="gradient-text">Interactive Demo</h2>
+            <p>Explore the CreatorMind AI user interface.</p>
+        </div>
+        
+        <div class="demo-container reveal">
+            <div class="demo-nav" id="demo-nav">
+                <button class="demo-btn active" data-target="login">Login / Auth</button>
+                <button class="demo-btn" data-target="dashboard">Dashboard Analytics</button>
+                <button class="demo-btn" data-target="library">Knowledge Library</button>
+                <button class="demo-btn" data-target="workspace">AI Workspace (Chat)</button>
+                <button class="demo-btn" data-target="studio">Writing Studio</button>
+                <button class="demo-btn" data-target="analytics">Deep Analytics</button>
+                <button class="demo-btn" data-target="calendar">Content Calendar</button>
+                <button class="demo-btn" data-target="profile">Creator Profile</button>
+                <button class="demo-btn" data-target="setting">Account Settings</button>
+            </div>
+            
+            <div class="demo-preview">
+                <div class="demo-info" id="demo-info">
+                    <h3>Secure Authentication</h3>
+                    <p>JWT-based authentication integrated with Supabase for absolute data isolation and session persistence.</p>
+                </div>
+                
+                <div class="demo-image-container">
+                    <!-- Default Image -->
+                    <img src="docs/assets/screenshots/1-login.png" alt="Login Screen" class="demo-img active" id="demo-img-display"
+                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMyMjIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZmlsbD0iI2ZmZiIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjEtbG9naW4ucG5nIG1pc3Npbmc8L3RleHQ+PC9zdmc+'">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 7. Architecture Section -->
+<section class="section" id="architecture">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="gradient-text">System Architecture</h2>
+            <p>Designed for scale, security, and context-aware intelligence.</p>
+        </div>
+        
+        <img src="docs/assets/architecture/system-architecture.png" alt="System Architecture Diagram" class="architecture-img reveal"
+             onerror="this.style.display='none'">
+        
+        <div class="arch-grid reveal">
+            <div class="glass-card p-4 arch-desc" style="padding: 1.5rem;">
+                <h4>Frontend Layer</h4>
+                <p>React + Vite application using TailwindCSS and Zustand for state management. Ensures rapid client-side routing, localized UI states, and handles streaming SSE data elegantly.</p>
+            </div>
+            
+            <div class="glass-card p-4 arch-desc" style="padding: 1.5rem;">
+                <h4>Backend Engine</h4>
+                <p>Asynchronous FastAPI Python server orchestrating SQLite for relational data mapping, background task queues, and strict API validation schemas via Pydantic.</p>
+            </div>
+            
+            <div class="glass-card p-4 arch-desc" style="padding: 1.5rem;">
+                <h4>RAG Intelligence</h4>
+                <p>Docling parses complex documents which are chunked and embedded before storage in ChromaDB vector space. Context is injected into IBM Granite models for generation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 8. Technology Stack Section -->
+<section class="section" id="technology">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="gradient-text">Technology Stack</h2>
+            <p>Built with enterprise-grade open source tools.</p>
+        </div>
+        
+        <div class="tech-grid reveal">
+            <div class="tech-card"><span>React</span></div>
+            <div class="tech-card"><span>Vite</span></div>
+            <div class="tech-card"><span>TypeScript</span></div>
+            <div class="tech-card"><span>TailwindCSS</span></div>
+            <div class="tech-card"><span>FastAPI</span></div>
+            <div class="tech-card"><span>Python</span></div>
+            <div class="tech-card"><span>Supabase</span></div>
+            <div class="tech-card"><span>SQLite</span></div>
+            <div class="tech-card"><span>ChromaDB</span></div>
+            <div class="tech-card"><span>IBM Granite</span></div>
+            <div class="tech-card"><span>Langchain</span></div>
+            <div class="tech-card"><span>Docker</span></div>
+        </div>
+    </div>
+</section>
+<!-- 9. Video Section -->
+<section class="section" id="video">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="gradient-text">See It In Action</h2>
+            <p>Watch the complete demonstration of CreatorMind AI workflows.</p>
+        </div>
+        
+        <div class="video-container reveal">
+            <!-- Using youtube embed URL format instead of shortlink for iframe -->
+            <iframe src="https://www.youtube.com/embed/pXBiXIN5rHU" title="CreatorMind AI Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
+<!-- 10. GitHub Section -->
+<section class="section">
+    <div class="container">
+        <div class="glass-card github-card reveal">
+            <h3 class="gradient-text">Open Source Repository</h3>
+            <p>CreatorMind AI is fully open source. View the codebase, architecture diagrams, and comprehensive documentation on GitHub.</p>
+            <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI" target="_blank" class="btn btn-primary ripple-btn">View Repository on GitHub</a>
+        </div>
+    </div>
+</section>
+<!-- 11. Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <a href="#" class="nav-logo">
+                <img src="docs/assets/logos/CreatorMindAI_Logo.png" alt="Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iIzBGNjJGRSIvPjxwYXRoIGQ9Ik0zMCA1MGwyMCAyMCAzMC00MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvc3ZnPg=='">
+                <span>CreatorMind AI</span>
+            </a>
+            
+            <p>Engineered for the IBM AI Builders Challenge.</p>
+            <p>Made by <strong>Gowtham Vanjimuthu</strong></p>
+            
+            <div class="social-links">
+                <a href="https://github.com/gowthamvanjimuthu-cyber/CreatorMind-AI" target="_blank" class="social-btn" aria-label="GitHub">GitHub</a>
+                <a href="#" class="social-btn" aria-label="LinkedIn">LinkedIn</a>
+            </div>
+            
+            <p style="font-size: 0.8rem; margin-top: 1rem;">MIT License &copy; 2026</p>
+        </div>
+    </div>
+</footer>
+<!-- Back to top button -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+<!-- JavaScript Logic -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- 1. Sticky Navbar & Active Section Highlighting ---
+        const navbar = document.getElementById('navbar');
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-item');
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollY = window.scrollY;
+            // Navbar background blur on scroll
+            if (scrollY > 50) {
+                navbar.classList.add('scrolled');
+                backToTop.classList.add('visible');
+            } else {
+                navbar.classList.remove('scrolled');
+                backToTop.classList.remove('visible');
+            }
+            // Determine active section
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                // Adjusted offset for sticky header
+                if (scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            // Apply active class to nav links
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').includes(current) && current !== null) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        // Back to Top functionality
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        // Mobile Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinksMenu = document.getElementById('nav-links');
+        hamburger.addEventListener('click', () => {
+            navLinksMenu.classList.toggle('active');
+            hamburger.textContent = navLinksMenu.classList.contains('active') ? '✕' : '☰';
+        });
+        // Close mobile menu on link click
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinksMenu.classList.remove('active');
+                hamburger.textContent = '☰';
+            });
+        });
+        // --- 2. Button Ripple Effect ---
+        const rippleBtns = document.querySelectorAll('.ripple-btn');
+        
+        rippleBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                let rect = this.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                let y = e.clientY - rect.top;
+                
+                let ripples = document.createElement('span');
+                ripples.style.left = x + 'px';
+                ripples.style.top = y + 'px';
+                ripples.classList.add('ripple');
+                
+                this.appendChild(ripples);
+                
+                setTimeout(() => {
+                    ripples.remove();
+                }, 600);
+            });
+        });
+        // --- 3. Typing Effect in Hero ---
+        const textToType = '"An AI-powered content platform that learns, preserves, and scales a creator\'s unique voice using RAG and IBM Granite-compatible architecture."';
+        const typewriterElement = document.getElementById('typewriter-text');
+        let i = 0;
+        
+        // Small delay before typing starts to let fadeUp animation finish
+        setTimeout(() => {
+            function typeWriter() {
+                if (i < textToType.length) {
+                    typewriterElement.innerHTML += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 35); // Typing speed
+                } else {
+                    // Remove caret blink when done if desired, or keep it
+                }
+            }
+            typeWriter();
+        }, 1000);
+        // --- 4. Intersection Observer (Fade Up & Counters) ---
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Handle counter animation if it's a stat card
+                    if (entry.target.classList.contains('stat-card')) {
+                        const numberElement = entry.target.querySelector('.stat-number');
+                        if (numberElement && !numberElement.dataset.animated) {
+                            animateCounter(numberElement);
+                            numberElement.dataset.animated = "true";
+                        }
+                    }
+                    
+                    // Stop observing once animated
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        const revealElements = document.querySelectorAll('.reveal');
+        revealElements.forEach(el => observer.observe(el));
+        // Counter Animation Function
+        function animateCounter(element) {
+            const target = +element.getAttribute('data-target') || 100;
+            const duration = 2000;
+            const frameRate = 1000 / 60;
+            const totalFrames = Math.round(duration / frameRate);
+            const isPercentage = element.innerText.includes('%') || false;
+            
+            let frame = 0;
+            
+            const count = setInterval(() => {
+                frame++;
+                const progress = frame / totalFrames;
+                // Ease out functionality
+                const easeOutProgress = 1 - Math.pow(1 - progress, 3); 
+                const currentCount = Math.round(target * easeOutProgress);
+                
+                if (target === 9) { // Special case for 9+
+                     element.innerText = currentCount + "+";
+                } else if (target === 100) {
+                     element.innerText = currentCount + "%";
+                } else {
+                     element.innerText = currentCount;
+                }
+                
+                if (frame >= totalFrames) {
+                    clearInterval(count);
+                    if (target === 9) element.innerText = "9+";
+                    else if (target === 100) element.innerText = "100%";
+                    else element.innerText = target;
+                }
+            }, frameRate);
+        }
+        // --- 5. Interactive Demo Gallery Logic ---
+        const demoData = {
+            login: {
+                title: "Secure Authentication",
+                desc: "JWT-based authentication integrated with Supabase for absolute data isolation and session persistence.",
+                img: "docs/assets/screenshots/1-login.png"
+            },
+            dashboard: {
+                title: "Executive Dashboard",
+                desc: "Comprehensive view of your content generation metrics, recent outputs, and active workspace status.",
+                img: "docs/assets/screenshots/2-dashboard.png"
+            },
+            library: {
+                title: "Knowledge Library",
+                desc: "Upload unstructured data (TXT, MD, PDF, DOCX) directly into ChromaDB for seamless chunking and indexing.",
+                img: "docs/assets/screenshots/3-knowledge-library.png"
+            },
+            workspace: {
+                title: "AI Workspace (Chat)",
+                desc: "Interactive RAG interface. Query your indexed knowledge base and receive fast, streaming responses with exact citations.",
+                img: "docs/assets/screenshots/4-workspace-chat.png"
+            },
+            studio: {
+                title: "Writing Studio",
+                desc: "Generate full-length articles, newsletters, or social posts utilizing IBM Granite via contextual prompts.",
+                img: "docs/assets/screenshots/5-writing-studio.png"
+            },
+            analytics: {
+                title: "Deep Analytics",
+                desc: "Assess AI confidence scores, style matching percentages, and generation latency over time.",
+                img: "docs/assets/screenshots/6-analytics.png"
+            },
+            calendar: {
+                title: "Content Calendar",
+                desc: "Organize, schedule, and review generated drafts visually mapped to your publishing lifecycle.",
+                img: "docs/assets/screenshots/7-calendar.png"
+            },
+            profile: {
+                title: "Creator Profile",
+                desc: "AI automatically extracts your tone, keywords, and structural habits from uploaded samples to lock in your voice.",
+                img: "docs/assets/screenshots/8-profile.png"
+            },
+            setting: {
+                title: "Account Settings",
+                desc: "Manage API keys, billing contexts, and granular application preferences securely.",
+                img: "docs/assets/screenshots/9-setting.png"
+            }
+        };
+        const demoBtns = document.querySelectorAll('.demo-btn');
+        const demoInfo = document.getElementById('demo-info');
+        const demoImgDisplay = document.getElementById('demo-img-display');
+        demoBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                demoBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                const targetKey = btn.getAttribute('data-target');
+                const data = demoData[targetKey];
+                // Fade out transitions
+                demoInfo.style.opacity = 0;
+                demoImgDisplay.classList.remove('active');
+                setTimeout(() => {
+                    // Update content
+                    demoInfo.innerHTML = `<h3>${data.title}</h3><p>${data.desc}</p>`;
+                    demoImgDisplay.src = data.img;
+                    
+                    // Handle image load error fallback safely within the DOM
+                    demoImgDisplay.onerror = function() {
+                        this.src = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMyMjIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZmlsbD0iI2ZmZiIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkltYWdlIG1pc3Npbmc6ICR7ZGF0YS5pbWcuc3BsaXQoJy8nKS5wb3AoKX08L3RleHQ+PC9zdmc+`;
+                    };
+                    // Fade in transitions
+                    demoInfo.style.opacity = 1;
+                    // Short delay to ensure image source swap registers before fade in
+                    setTimeout(() => {
+                        demoImgDisplay.classList.add('active');
+                    }, 50);
+                }, 300); // match transition timing
+            });
+        });
+    });
+</script>
