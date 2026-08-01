@@ -58,7 +58,7 @@
 
 ---
 
-🔗 **Live Demo (MVP):**  
+🔗 **Interactive Details**  
  https://gowthamvanjimuthu-cyber.github.io/CreatorMind-AI/
  
 ---
